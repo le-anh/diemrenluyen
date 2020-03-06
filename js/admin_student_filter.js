@@ -190,7 +190,6 @@ function getSinhVienByKhoaNganhLop_TruongDonVi() {
     }catch(e){}
 }
 
-
 function showNganhList(arrayNganh) {
     $('#ul-nganh').html("");
 
