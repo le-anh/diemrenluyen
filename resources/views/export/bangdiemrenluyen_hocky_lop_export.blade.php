@@ -7,7 +7,7 @@
                 @if(isset($dsSinhVien_Diem_XepLoai))
                     <table style="width:100%;">
                         <tr>
-                            <td class="text-center">UBND TỈNH AN GIANG</td>
+                            <td class="text-center">ĐẠI HỌC QUỐC GIA TP HCM</td>
                             <th class="text-center"><strong> <b> CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM </b></strong></th>
                         </tr>
                         <tr>
