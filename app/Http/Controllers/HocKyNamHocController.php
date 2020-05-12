@@ -60,8 +60,6 @@ class HocKyNamHocController extends Controller
      */
     public function store(HocKyNamHocRequest $request)
     {
-        $result = array('status' => true, 'message' => "Thêm thành công1!");
-
         $idHocKy = trim($request->idhocky);
         $idNamHoc = trim($request->idnamhoc);
         $idTrangThai = HocKyNamHocController::checkSetDefaultTrangThai(trim($request->idtrangthai));
@@ -83,7 +81,6 @@ class HocKyNamHocController extends Controller
                 try {
                     $objnew = HocKyNamHoc::find($HocKyNamHoc->id)->toArray();
                     LogController::storeobjectlog('', $objnew, LogLoaiHoatDong::NewInsertRecord, '');
-                    
                 } catch (Exception $e) {}
                 // End Write log
 
@@ -173,8 +170,6 @@ class HocKyNamHocController extends Controller
         } catch (\Throwable $th) {
             return $result = array('status' => false, 'message' => "Error!<br>".$th->getMessage());
         }
-
-        
     }
 
     /**
@@ -272,9 +267,9 @@ class HocKyNamHocController extends Controller
 
     public static function setAllHienHanhToDaHoanThanh()
     {
-        $id_HienHanh = HocKyNamHocController::getIdHocKyNamHocHienHanh();
+        // $id_HienHanh = HocKyNamHocController::getIdHocKyNamHocHienHanh();
         
-        HocKyNamHoc::where('id',$id_HienHanh)
+        HocKyNamHoc::where('idtrangthaihocky', TrangThaiHocKy::HIENHANH)
             -> update(['idtrangthaihocky' => TrangThaiHocKy::DAHOANTHANH]);
     }
 

@@ -269,7 +269,7 @@ function showSinhVienList(arraySinhVien) {
                     value.tenlop,
                     value.tennganh,
                     value.tenkhoa,
-                    '<a target="_blank" href="' + urlRouteBangDiemRenLuyenChiTiet + '/' + idHocKyNamHocHienHanh + '/' + value.id + '" class="btn btn-success" title="Xem điểm rèn luyện"><i class="fa fa-check-square-o"></i></a> <a target="_blank" href="' + urlRouteGetSinhVienCapNhat + '/' + value.id + '" class="btn btn-warning" title="Xem - Cập nhật thông tin sinh viên"><i class="fa fa-info-circle"></i></a> <a href="' + urlRouteSinhVienDestroy + '/' + value.id + '" class="btn btn-danger sinhvien_remove" Ten="' + value.hochulot + " " + value.ten + '" title="Xóa sinh viên"><i class="fa fa-trash"></i></a> '
+                    '<a target="_blank" href="' + urlRouteBangDiemRenLuyenChiTiet + '/' + idHocKyNamHocHienHanh + '/' + value.id + '" class="btn btn-success" title="Xem điểm rèn luyện"><i class="fa fa-eye"></i></a> <a target="_blank" href="' + urlRouteGetSinhVienCapNhat + '/' + value.id + '" class="btn btn-warning" title="Xem - Cập nhật thông tin sinh viên"><i class="fa fa-info-circle"></i></a> <a href="' + urlRouteSinhVienDestroy + '/' + value.id + '" class="btn btn-danger sinhvien_remove" Ten="' + value.hochulot + " " + value.ten + '" title="Xóa sinh viên"><i class="fa fa-trash"></i></a> '
                 ];
 
                 $('#table-studentListResult').DataTable().row.add(row);

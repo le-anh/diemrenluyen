@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\UserGroup;
 use Illuminate\Http\Request;
+use Auth;
+use App\Group;
 
 
 class UserGroupController extends Controller
@@ -139,5 +141,26 @@ class UserGroupController extends Controller
             return $tblGroupAllLevel;
 
         return 0;
+    }
+
+    public static function hasGroup($userId = null, $group = [])
+    {
+        try {
+            return  count(array_intersect(self::getGroups($userId)->toArray(), $group)) ? true : false;
+        } catch (\Throwable $th) {
+            return false;
+        }
+    }
+
+    public static function getGroups($userId = null)
+    {
+        try {
+            if(!$userId)
+                $userId = Auth::user()->id;
+        } catch (\Throwable $th) {
+            return [];
+        }
+        
+        return UserGroup::where('idUser', '=', $userId)->pluck('idGroup');
     }
 }
