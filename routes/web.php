@@ -209,6 +209,14 @@ Route::middleware('auth')->group(function(){
 			Route::get('create-mark/{idhockynamhoc}/{idbotieuchi}', 'HocKyNamHocBoTieuChiController@admingeneratemark')->name('admin_hockynamhocbotieuchi_generatemark');
 		});
 
+		// Hoc kỳ - Năm học - Lớp đánh giá
+		Route::prefix('lopdanhgia')->group(function(){
+			Route::get('', 'DanhGiaDiemRenLuyenLopHocKyController@adminindex')->name('admin_danhgiadrllophocky_index');
+			Route::prefix('hocky')->group(function(){
+				Route::get('edit/{idhockynamhoc}', 'DanhGiaDiemRenLuyenLopHocKyController@adminedit')->name('admin_danhgiadrllophocky_edit');
+			});
+		});
+
 		// Tiêu chí, Tiêu chí - Minh chứng
 		Route::prefix('tieuchi')->group(function(){
 			Route::get('', 'TieuChiController@adminindextieuchi')->name('admin_index_tieuchi');
@@ -567,6 +575,7 @@ Route::middleware('auth')->group(function(){
 	/* --------- Group route Ajax --------- */
 	Route::post('getnganhbykhoa', 'NganhController@getNganhByKhoa')->name('admin_getnganhbykhoa');
 	Route::post('getlopbynganh', 'LopController@getLopByNganh')->name('admin_getlopbynganh');
+	Route::post('getlopbykhoahoc', 'LopController@getLopByKhoaHoc')->name('admin_getlopbykhoahoc');
 	Route::post('getsinhvienfilter', 'SinhVienController@getSinhVienByKhoaNganhLop')->name('admin_getsinhvienbykhoanganhlop');
 	Route::get('getsinhvienfilterexport', 'SinhVienController@getSinhVienByKhoaNganhLopExport')->name('admin_getsinhvienbykhoanganhlopexport');
 	Route::get('hinhthe-export', 'ServiceHinhTheController@HinhTheByLopExport')->name('admin_getdshinhthebyloplopexport');
