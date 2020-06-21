@@ -24,54 +24,58 @@
         <div class="x_panel">
             <div class="x_content">
                 @include('layouts.gentelella-master.blocks.flash-messages')
-                @if(isset($dsTieuChi_Level_0) && isset($boTieuChi))
-                    <?php $STT = '0' ?>
-                    <table id="datatable-buttons" class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th width="5%">#</th>
-                                <th width="75%">Nội dung</th>
-                                <th width="10%" class="text-right-middle">Hạn mức</th>
-                                <th width="10%" class="text-right-middle">Mặc định</th>
-                            </tr>
-                        </thead> 
-                        <tbody>
-                            @foreach($dsTieuChi_Level_0 as $tieuChi)
-                                <tr>
-                                    <th class="text-justify-middle">{{$tieuChi->chimuctieuchi}}</th>
-                                    @if($tieuChi->idloaidiem == 1)
-                                        <th class="text-justify-middle">
-                                            {!! $tieuChi->tentieuchi !!}
-                                        </th>
-                                    @else
-                                        <td class="text-justify-middle">
-                                            {!! $tieuChi->tentieuchi !!}
-                                        </td>
-                                    @endif
-                                    <td class="text-right-middle">{{$tieuChi->diemtoida}}</td>
-                                    <th class="text-right-middle">{{$tieuChi->diemmacdinh}}</th>
-                                </tr>
-                                {{App\Http\Controllers\TieuChiController::TieuChiConXem($tieuChi->id, $boTieuChi)}}
-                            @endforeach
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <td colspan="2" class="text-center">
-                                    @if(isset($countTieuChi_Level_0))
-                                        <strong>Tổng cộng {{$countTieuChi_Level_0}} tiêu chí</strong>
-                                    @endif
-                                </td>
-                                <td class="text-right-middle">
-                                    @if(isset($totalMarks))
-                                        <strong>{{$totalMarks}}</strong>
-                                    @endif
-                                </td>
-                                <td></td>
-                            </tr>
-                        </tfoot>
-                    </table>
+                @if(isset($mesages) && !empty($mesages))
+                    <h4> {!! $mesages !!}</h4>
                 @else
-                    {{'Không có thông tin!'}}
+                    @if(isset($dsTieuChi_Level_0) && isset($boTieuChi))
+                        <?php $STT = '0' ?>
+                        <table id="datatable-buttons" class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th width="5%">#</th>
+                                    <th width="75%">Nội dung</th>
+                                    <th width="10%" class="text-right-middle">Hạn mức</th>
+                                    <th width="10%" class="text-right-middle">Mặc định</th>
+                                </tr>
+                            </thead> 
+                            <tbody>
+                                @foreach($dsTieuChi_Level_0 as $tieuChi)
+                                    <tr>
+                                        <th class="text-justify-middle">{{$tieuChi->chimuctieuchi}}</th>
+                                        @if($tieuChi->idloaidiem == 1)
+                                            <th class="text-justify-middle">
+                                                {!! $tieuChi->tentieuchi !!}
+                                            </th>
+                                        @else
+                                            <td class="text-justify-middle">
+                                                {!! $tieuChi->tentieuchi !!}
+                                            </td>
+                                        @endif
+                                        <td class="text-right-middle">{{$tieuChi->diemtoida}}</td>
+                                        <th class="text-right-middle">{{$tieuChi->diemmacdinh}}</th>
+                                    </tr>
+                                    {{App\Http\Controllers\TieuChiController::TieuChiConXem($tieuChi->id, $boTieuChi)}}
+                                @endforeach
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="2" class="text-center">
+                                        @if(isset($countTieuChi_Level_0))
+                                            <strong>Tổng cộng {{$countTieuChi_Level_0}} tiêu chí</strong>
+                                        @endif
+                                    </td>
+                                    <td class="text-right-middle">
+                                        @if(isset($totalMarks))
+                                            <strong>{{$totalMarks}}</strong>
+                                        @endif
+                                    </td>
+                                    <td></td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    @else
+                        {{'Không có thông tin!'}}
+                    @endif
                 @endif
             </div>
         </div>

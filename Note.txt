@@ -1,0 +1,19 @@
+* Code
+Edit:
+ app\Group.php
+ app\SinhVien.php
+ app\Http\Controller\UserGroupController.php
+ app\Http\Controller\HocKyNamHocController.php
+ 
+
+ resources\views\admin\hockynamhocbotieuchilist.blade.php
+ resources\views\admin\danhgiadiemrenluyenlophockyedit.blade.php
+ resources\views\admin\tieuchilist.blade.php
+ app\Http\Controller\TieuChiController.php
+ app\Http\Controller\LopController.php
+ js/admin_student_filter.js
+
+
+
+* DB:
+  sinhvien add column deleted_at type datetime default null

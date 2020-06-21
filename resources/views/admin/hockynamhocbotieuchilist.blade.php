@@ -22,13 +22,13 @@
                     @include('layouts.gentelella-master.blocks.flash-messages')
                     @if(isset($dsHocKyNamHoc))
                         <?php $STT = '0' ?>
-                        <table id="datatable-buttons" class="table table-striped">
+                        <table id="datatable-buttons" class="table table-striped" width="100%">
                             <thead>
                                 <tr>
                                     <th width="5%" class="text-center">#</th>
                                     <th width="25%">Học kỳ - Năm học</th>
                                     <th width="50%">Bộ tiêu chí</th>
-                                    <th width="20%"></th>
+                                    <th width="5%"></th>
                                 </tr>
                             </thead> 
                             <tbody>
@@ -40,6 +40,7 @@
                                             @if($hocKyNamHoc->hockynamhocbotieuchi)
                                                 <a href="{{route('admin_botieuchi_tieuchi_index', ['idbotieuchi'=>$hocKyNamHoc->hockynamhocbotieuchi->botieuchi->id])}}" title="Xem chi tiết tiêu chí">
                                                     <span class="label label-success"> <strong> {{$hocKyNamHoc->hockynamhocbotieuchi->botieuchi->tenbotieuchi}} </strong> </span>
+                                                    <!-- <strong> {{$hocKyNamHoc->hockynamhocbotieuchi->botieuchi->tenbotieuchi}} </strong>  -->
                                                 </a>
                                             @endif
                                         </td>

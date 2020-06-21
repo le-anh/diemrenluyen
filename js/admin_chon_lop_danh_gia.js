@@ -2,298 +2,292 @@ var arrKhoaID = new Array();
 var arrKhoaHocID = new Array();
 var arrNganhID = new Array();
 var arrLopID = new Array();
-$('#inpmssv').keyup(function(e){
+var arrLopOld = [];
+$('#inpmssv').keyup(function(e) {
     /* Ignore tab key */
     var code = e.keyCode || e.which;
     if (code == '9') return;
     /* Useful DOM data and selectors */
-    if(code == '13')
-    {
-        try{
+    if (code == '13') {
+        try {
             loadereffectshow();
-            setTimeout(function(){
+            setTimeout(function() {
                 getSinhVienByKhoaNganhLop();
-            }, 10); 
-        }catch(e){
+            }, 10);
+        } catch (e) {
             loadereffecthide();
         }
     }
 });
 
-$('.student_filter').click(function(e){
-    try{
+$('.student_filter').click(function(e) {
+    try {
         loadereffectshow();
-        setTimeout(function(){
+        setTimeout(function() {
             getSinhVienByKhoaNganhLop();
-        }, 10); 
-    }catch(e){
+        }, 10);
+    } catch (e) {
         loadereffecthide();
     }
 });
 
-$('.subadmin_student_filter').click(function(e){
-    try{
+$('.subadmin_student_filter').click(function(e) {
+    try {
         loadereffectshow();
-        setTimeout(function(){
+        setTimeout(function() {
             getSinhVienByKhoaNganhLop_Subadmin();
-        }, 10); 
-    }catch(e){
+        }, 10);
+    } catch (e) {
         loadereffecthide();
     }
 });
 
-$('.truongdonvi_student_filter').click(function(e){
+$('.truongdonvi_student_filter').click(function(e) {
     console.log("truongdonvi_student_filter click");
-    try{
+    try {
         loadereffectshow();
-        setTimeout(function(){
+        setTimeout(function() {
             getSinhVienByKhoaNganhLop_TruongDonVi();
-        }, 10); 
-    }catch(e){
+        }, 10);
+    } catch (e) {
         loadereffecthide();
     }
 });
 
-$('.student_export').click(function(e){
-    try{
+$('.student_export').click(function(e) {
+    try {
         loadereffectshow();
         var data = getDataKhoaNganhLop();
         var url = urlRouteGetSinhVienByKhoaNganhLopExport + "?" + $.param(data);
         window.location = url;
         loadereffecthide();
-    }catch(e){}
+    } catch (e) {}
 
     e.preventDefault();
     e.stopImmediatePropagation();
 });
 
-$('.khoa').click(function(e){
-    try{
+$('.khoa').click(function(e) {
+    try {
         loadereffectshow();
         var item = $(this).val();
         var index = arrKhoaID.indexOf(item);
-        if (index !== -1) 
-        {
+        if (index !== -1) {
             arrKhoaID.splice(index, 1);
-        }
-        else
-        {
+        } else {
             arrKhoaID.push($(this).val());
         }
 
         getNganhByKhoa();
         loadereffecthide();
-    }catch(e){}
+    } catch (e) {}
 });
 
-$('.khoahoc').click(function(e){
-    try{
+$('.khoahoc').click(function(e) {
+    try {
         loadereffectshow();
         var item = $(this).val();
         var index = arrKhoaHocID.indexOf(item);
-        if (index !== -1) 
+        if (index !== -1)
             arrKhoaHocID.splice(index, 1);
         else
             arrKhoaHocID.push($(this).val());
-        console.log(arrKhoaHocID);
         getLopByKhoaHoc();
         loadereffecthide();
-    }catch(e){}
+    } catch (e) {}
 });
 
-$('.nganh').click(function(e){
-    try{
+$('.nganh').click(function(e) {
+    try {
         loadereffectshow();
         var item = $(this).val();
         var index = arrNganhID.indexOf(item);
-        if (index !== -1) 
-        {
+        if (index !== -1) {
             arrNganhID.splice(index, 1);
-        }
-        else
-        {
+        } else {
             arrNganhID.push($(this).val());
         }
 
         getLopByNganh();
         loadereffecthide();
-    }catch(e){}
+    } catch (e) {}
 });
 
-$('.lop').click(function(e){
-    try{
+$('.lop').click(function(e) {
+    try {
 
         var item = $(this).val();
         var index = arrLopID.indexOf(item);
-        if (index !== -1) 
-        {
+        if (index !== -1) {
             arrLopID.splice(index, 1);
-        }
-        else
-        {
+        } else {
             arrLopID.push($(this).val());
         }
-    }catch(e){}
+    } catch (e) {}
 });
 
 function getNganhByKhoa() {
-    try
-    {
-        if(arrKhoaID.length > 0)
-        {
-            var data = {'KhoaID': arrKhoaID};
+    try {
+        if (arrKhoaID.length > 0) {
+            var data = { 'KhoaID': arrKhoaID };
             var dataAjaxResult = callAjax(urlRouteGetNganhByKhoa, "POST", data);
             showNganhList(dataAjaxResult);
-            arrNganhID=new Array();
+            arrNganhID = new Array();
             getLopByNganh();
-        }
-        else{
+        } else {
             setNganhListNull();
         }
-    }catch(e){}
+    } catch (e) {}
 }
 
 function getLopByKhoaHoc() {
-    try
-    {
-        if(arrKhoaHocID.length > 0)
-        {
-            var data = {'KhoaHocID': arrKhoaHocID};
+    try {
+        if (arrKhoaHocID.length > 0) {
+            var data = { 'KhoaHocID': arrKhoaHocID };
             var dataAjaxResult = callAjax(urlRouteGetLopByKhoaHoc, "POST", data);
             showLopList(dataAjaxResult);
-            arrLopID=new Array();
-        }
-        else{
+            // arrLopID=new Array();
+        } else {
             setLopListNull();
         }
-    }catch(e){}
+    } catch (e) {}
 }
 
 function getLopByNganh() {
-    try
-    {
-        if(arrNganhID.length > 0)
-        {
-            var data = {'NganhID': arrNganhID};
+    try {
+        if (arrNganhID.length > 0) {
+            var data = { 'NganhID': arrNganhID };
             var dataAjaxResult = callAjax(urlRouteGetLopByNganh, "POST", data);
             showLopList(dataAjaxResult);
-            arrLopID=new Array();
-        }
-        else{
+            arrLopID = new Array();
+        } else {
             setLopListNull();
         }
-    }catch(e){}
+    } catch (e) {}
 }
 
 function getDataKhoaNganhLop() {
     var mssv = $('#inpmssv').val();
-    return {'KhoaID': arrKhoaID, 'NganhID': arrNganhID, 'LopID': arrLopID, 'MSSV': mssv};
+    return { 'KhoaID': arrKhoaID, 'NganhID': arrNganhID, 'LopID': arrLopID, 'MSSV': mssv };
 }
 
 function getSinhVienByKhoaNganhLop() {
-    try
-    {
+    try {
         var data = getDataKhoaNganhLop();
         var dataAjaxResult = callAjax(urlRouteGetSinhVienByKhoaNganhLop, "POST", data);
 
         showSinhVienList(dataAjaxResult);
-    }catch(e){}
+    } catch (e) {}
 }
 
 function getSinhVienByKhoaNganhLop_Subadmin() {
-    try
-    {
+    try {
         var data = getDataKhoaNganhLop();
         console.log("getSinhVienByKhoaNganhLop_Subadmin ajax 1");
         var dataAjaxResult = callAjax(urlRouteGetSinhVienByKhoaNganhLop, "POST", data);
         console.log("getSinhVienByKhoaNganhLop_Subadmin ajax 2");
         showSinhVienList_Subadmin(dataAjaxResult);
-    }catch(e){}
+    } catch (e) {}
 }
 
 function getSinhVienByKhoaNganhLop_TruongDonVi() {
-    try
-    {
+    try {
         var data = getDataKhoaNganhLop();
         console.log("getSinhVienByKhoaNganhLop_Subadmin ajax 1");
         var dataAjaxResult = callAjax(urlRouteGetSinhVienByKhoaNganhLop, "POST", data);
         console.log("getSinhVienByKhoaNganhLop_Subadmin ajax 2");
         showSinhVienList_TruongDonVi(dataAjaxResult);
-    }catch(e){}
+    } catch (e) {}
 }
 
 function showNganhList(arrayNganh) {
     $('#ul-nganh').html("");
 
-    if(arrayNganh.length > 0)
-    {
-        $.each(arrayNganh, function(key, value){
+    if (arrayNganh.length > 0) {
+        $.each(arrayNganh, function(key, value) {
             $('#ul-nganh').append('<li class="list-group-item nganh" value="' + value["id"] + '">' + value["tennganh"] + ' (' + value["tenbac"] + ') </li>')
         });
 
         initListGroupCheckboxNganh();
 
-        $('.nganh').click(function(e){
-            try{
+        $('.nganh').click(function(e) {
+            try {
                 loadereffectshow();
 
                 var item = $(this).val();
                 var index = arrNganhID.indexOf(item);
-                if (index !== -1) 
-                {
+                if (index !== -1) {
                     arrNganhID.splice(index, 1);
-                }
-                else
-                {
+                } else {
                     arrNganhID.push($(this).val());
                 }
 
                 getLopByNganh();
                 loadereffecthide();
-            }catch(e){}
+            } catch (e) {}
         });
     }
 }
 
-function showLopList(arrayLop) {
-    $('#ul-lop').html("");
 
-    if(arrayLop.length > 0)
-    {
-        $.each(arrayLop, function(key, value){
-            $('#ul-lop').append('<li class="list-group-item lop" value="' + value["id"] + '">' + value["tenlop"] + ' </li>')
-        });
-    }
+function showLopList(arrayLop) {
+    // $('#ul-lop').html("");
+    arrayLopNew = [];
+
+    $.each(arrayLop, function(key, value) {
+        arrayLopNew.push(value["id"]);
+        if (arrLopOld.indexOf(value["id"]) === -1)
+            $('#ul-lop').append('<li class="list-group-item lop" id="li_lop_' + value["id"] + '" value="' + value["id"] + '"> <input type="checkbox" id="chk_lop_' + value["id"] + '" name="chk_lop[]"> <label for="chk_lop_' + value["id"] + '"> <strong> ' + value["tenlop"] + ' <strong> </label> </li>')
+    });
+
+    $.each(arrLopOld, function(key, value) {
+        if (arrayLopNew.indexOf(value) === -1) {
+            $('#li_lop_' + value).remove();
+        }
+    });
+
+
+
+    if (arrayLopNew && arrayLopNew.length > 0)
+        arrLopOld = arrayLopNew;
+    else
+        arrLopOld = [];
+    console.log("update: " + arrLopOld);
 
     // init();
-    $('.lop').click(function(e){
-        try{
+    $('.lop').click(function(e) {
+
+        if ($('#chk_lop_' + $(this).val()).is(":checked")) {
+            $(this).removeClass("list-group-item-primary active");
+            $('#chk_lop_' + $(this).val()).prop('checked', false);
+        } else {
+            $(this).addClass("list-group-item-primary active");
+            $('#chk_lop_' + $(this).val()).prop('checked', true);
+        }
+
+
+        try {
             // loadereffectshow();
 
             var item = $(this).val();
             var index = arrLopID.indexOf(item);
-            if (index !== -1) 
-            {
+            if (index !== -1) {
                 arrLopID.splice(index, 1);
-            }
-            else
-            {
+            } else {
                 arrLopID.push($(this).val());
             }
             // loadereffecthide();
-        }catch(e){}
+        } catch (e) {}
     });
     initListGroupCheckboxLop();
 }
 
 function showSinhVienList(arraySinhVien) {
-    try
-    {
+    try {
         $('#table-studentListResult').DataTable().clear();
 
-        if(arraySinhVien.length > 0)
-        {
-            $.each(arraySinhVien, function(key, value){
+        if (arraySinhVien.length > 0) {
+            $.each(arraySinhVien, function(key, value) {
 
                 var row = [
                     value.mssv,
@@ -311,38 +305,34 @@ function showSinhVienList(arraySinhVien) {
             loadereffecthide();
         }
 
-        $('.sinhvien_remove').click(function (e) {
+        $('.sinhvien_remove').click(function(e) {
             e.preventDefault();
-            if(confirm("Bạn có chắc là muốn xóa sinh viên " + $(this).attr("Ten") + "?"))
-            {
+            if (confirm("Bạn có chắc là muốn xóa sinh viên " + $(this).attr("Ten") + "?")) {
                 console.log($(this).attr("href"));
                 var resultAjax = callAjax($(this).attr("href"), "GET");
                 alert(resultAjax['message']);
-                if(resultAjax['result'] == true)
-                    $(this).closest("tr").remove(); 
+                if (resultAjax['result'] == true)
+                    $(this).closest("tr").remove();
             }
         });
         loadereffecthide();
-    }
-    catch(e){}
+    } catch (e) {}
 }
 
 function showSinhVienList_Subadmin(arraySinhVien) {
-    try
-    {
+    try {
         $('#table-studentListResult').DataTable().clear();
 
-        if(arraySinhVien.length > 0)
-        {
-            $.each(arraySinhVien, function(key, value){
+        if (arraySinhVien.length > 0) {
+            $.each(arraySinhVien, function(key, value) {
 
                 var row = [
-                  value.mssv,
-                  value.hochulot + " " + value.ten,
-                  value.tenlop,
-                  value.tennganh,
-                  value.tenkhoa,
-                  '<a target="_blank" href="' + urlRoute_subadmin_sinhvien_show + '/' + value.id + '" class="btn btn-info"><i class="fa fa-info-circle"></i></a>'
+                    value.mssv,
+                    value.hochulot + " " + value.ten,
+                    value.tenlop,
+                    value.tennganh,
+                    value.tenkhoa,
+                    '<a target="_blank" href="' + urlRoute_subadmin_sinhvien_show + '/' + value.id + '" class="btn btn-info"><i class="fa fa-info-circle"></i></a>'
                 ];
 
                 $('#table-studentListResult').DataTable().row.add(row);
@@ -351,24 +341,21 @@ function showSinhVienList_Subadmin(arraySinhVien) {
             loadereffecthide();
         }
 
-        $('.sinhvien_remove').click(function (e) {
+        $('.sinhvien_remove').click(function(e) {
             e.preventDefault();
-            if(confirm("Bạn có chắc là muốn xóa sinh viên " + $(this).attr("Ten") + "?"))
+            if (confirm("Bạn có chắc là muốn xóa sinh viên " + $(this).attr("Ten") + "?"))
                 alert(callAjax($(this).attr("href"), "GET"));
         });
         loadereffecthide();
 
-    }
-    catch(e){}
+    } catch (e) {}
 }
 
 function showSinhVienList_TruongDonVi(arraySinhVien) {
-    try
-    {
+    try {
         $('#table-studentListResult').DataTable().clear();
-        if(arraySinhVien.length > 0)
-        {
-            $.each(arraySinhVien, function(key, value){
+        if (arraySinhVien.length > 0) {
+            $.each(arraySinhVien, function(key, value) {
                 var row = [
                     value.mssv,
                     value.hochulot + " " + value.ten,
@@ -383,8 +370,7 @@ function showSinhVienList_TruongDonVi(arraySinhVien) {
             loadereffecthide();
         }
         loadereffecthide();
-    }
-    catch(e){}
+    } catch (e) {}
 }
 
 function setNganhListNull() {
@@ -393,9 +379,11 @@ function setNganhListNull() {
 
 function setLopListNull() {
     $('#ul-lop').html("");
+    arrLopOld = [];
+    arrLopID = [];
 }
 
-$('.list-group.checked-list-box .list-group-item').each(function () {
+$('.list-group.checked-list-box .list-group-item').each(function() {
     // Settings
     var $widget = $(this),
         $checkbox = $('<input type="checkbox" class="hidden" />'),
@@ -409,17 +397,17 @@ $('.list-group.checked-list-box .list-group-item').each(function () {
                 icon: 'glyphicon glyphicon-unchecked'
             }
         };
-        
+
     $widget.css('cursor', 'pointer')
     $widget.append($checkbox);
 
     // Event Handlers
-    $widget.on('click', function () {
+    $widget.on('click', function() {
         $checkbox.prop('checked', !$checkbox.is(':checked'));
         $checkbox.triggerHandler('change');
         updateDisplay();
     });
-    $checkbox.on('change', function () {
+    $checkbox.on('change', function() {
         updateDisplay();
     });
 
@@ -445,11 +433,11 @@ $('.list-group.checked-list-box .list-group-item').each(function () {
 
     // Initialization
     function init() {
-        
+
         if ($widget.data('checked') == true) {
             $checkbox.prop('checked', !$checkbox.is(':checked'));
         }
-        
+
         updateDisplay();
 
         // Inject the icon if applicable
@@ -461,7 +449,7 @@ $('.list-group.checked-list-box .list-group-item').each(function () {
 });
 
 function initListGroupCheckboxNganh() {
-    $('#ul-nganh .list-group-item').each(function () {
+    $('#ul-nganh .list-group-item').each(function() {
         // Settings
         var $widget = $(this),
             $checkbox = $('<input type="checkbox" class="hidden" />'),
@@ -475,17 +463,17 @@ function initListGroupCheckboxNganh() {
                     icon: 'glyphicon glyphicon-unchecked'
                 }
             };
-            
+
         $widget.css('cursor', 'pointer')
         $widget.append($checkbox);
 
         // Event Handlers
-        $widget.on('click', function () {
+        $widget.on('click', function() {
             $checkbox.prop('checked', !$checkbox.is(':checked'));
             $checkbox.triggerHandler('change');
             updateDisplayNganh();
         });
-        $checkbox.on('change', function () {
+        $checkbox.on('change', function() {
             updateDisplayNganh();
         });
 
@@ -511,11 +499,11 @@ function initListGroupCheckboxNganh() {
 
         // Initialization
         function initNganh() {
-            
+
             if ($widget.data('checked') == true) {
                 $checkbox.prop('checked', !$checkbox.is(':checked'));
             }
-            
+
             updateDisplayNganh();
 
             // Inject the icon if applicable
@@ -524,72 +512,72 @@ function initListGroupCheckboxNganh() {
             }
         }
         initNganh();
-        });
-}
-
-function initListGroupCheckboxLop() {
-    $('#ul-lop .list-group-item').each(function () {
-        // Settings
-        var $widget = $(this),
-            $checkbox = $('<input type="checkbox" class="hidden" />'),
-            color = ($widget.data('color') ? $widget.data('color') : "primary"),
-            style = ($widget.data('style') == "button" ? "btn-" : "list-group-item-"),
-            settings = {
-                on: {
-                    icon: 'glyphicon glyphicon-check'
-                },
-                off: {
-                    icon: 'glyphicon glyphicon-unchecked'
-                }
-            };
-            
-        $widget.css('cursor', 'pointer')
-        $widget.append($checkbox);
-
-        // Event Handlers
-        $widget.on('click', function () {
-            $checkbox.prop('checked', !$checkbox.is(':checked'));
-            $checkbox.triggerHandler('change');
-            updateDisplay();
-        });
-        $checkbox.on('change', function () {
-            updateDisplayLop();
-        });
-
-        // Actions
-        function updateDisplayLop() {
-            var isChecked = $checkbox.is(':checked');
-
-            // Set the button's state
-            $widget.data('state', (isChecked) ? "on" : "off");
-
-            // Set the button's icon
-            $widget.find('.state-icon')
-                .removeClass()
-                .addClass('state-icon ' + settings[$widget.data('state')].icon);
-
-            // Update the button's color
-            if (isChecked) {
-                $widget.addClass(style + color + ' active');
-            } else {
-                $widget.removeClass(style + color + ' active');
-            }
-        }
-
-        // Initialization
-        function initLop() {
-            
-            if ($widget.data('checked') == true) {
-                $checkbox.prop('checked', !$checkbox.is(':checked'));
-            }
-            
-            updateDisplayLop();
-
-            // Inject the icon if applicable
-            if ($widget.find('.state-icon').length == 0) {
-                $widget.prepend('<span class="state-icon ' + settings[$widget.data('state')].icon + '"></span> ');
-            }
-        }
-        initLop();
     });
 }
+
+// function initListGroupCheckboxLop() {
+//     $('#ul-lop .list-group-item').each(function () {
+//         // Settings
+//         var $widget = $(this),
+//             $checkbox = $('<input type="checkbox" class="hidden" />'),
+//             color = ($widget.data('color') ? $widget.data('color') : "primary"),
+//             style = ($widget.data('style') == "button" ? "btn-" : "list-group-item-"),
+//             settings = {
+//                 on: {
+//                     icon: 'glyphicon glyphicon-check'
+//                 },
+//                 off: {
+//                     icon: 'glyphicon glyphicon-unchecked'
+//                 }
+//             };
+
+//         $widget.css('cursor', 'pointer')
+//         $widget.append($checkbox);
+
+//         // Event Handlers
+//         $widget.on('click', function () {
+//             $checkbox.prop('checked', !$checkbox.is(':checked'));
+//             $checkbox.triggerHandler('change');
+//             updateDisplay();
+//         });
+//         $checkbox.on('change', function () {
+//             updateDisplayLop();
+//         });
+
+//         // Actions
+//         function updateDisplayLop() {
+//             var isChecked = $checkbox.is(':checked');
+
+//             // Set the button's state
+//             $widget.data('state', (isChecked) ? "on" : "off");
+
+//             // Set the button's icon
+//             $widget.find('.state-icon')
+//                 .removeClass()
+//                 .addClass('state-icon ' + settings[$widget.data('state')].icon);
+
+//             // Update the button's color
+//             if (isChecked) {
+//                 $widget.addClass(style + color + ' active');
+//             } else {
+//                 $widget.removeClass(style + color + ' active');
+//             }
+//         }
+
+//         // Initialization
+//         function initLop() {
+
+//             if ($widget.data('checked') == true) {
+//                 $checkbox.prop('checked', !$checkbox.is(':checked'));
+//             }
+
+//             updateDisplayLop();
+
+//             // Inject the icon if applicable
+//             if ($widget.find('.state-icon').length == 0) {
+//                 $widget.prepend('<span class="state-icon ' + settings[$widget.data('state')].icon + '"></span> ');
+//             }
+//         }
+//         initLop();
+//     });
+// }

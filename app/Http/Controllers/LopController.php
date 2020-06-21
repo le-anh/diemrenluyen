@@ -382,6 +382,19 @@ class LopController extends Controller
         return $DanhSach_Lop;
     }
 
+    public function getLopByKhoaHoc(Request $arrayKhoaHocID)
+    {
+        $DanhSach_Lop = Lop::whereIn('khoahoc_id', $arrayKhoaHocID->KhoaHocID)
+            -> orderBy('tenlop', 'asc')
+            -> get();
+
+        // if($DanhSach_Lop)
+        // {
+            return $DanhSach_Lop ? $DanhSach_Lop->toArray(): [];
+        // }
+        // return $DanhSach_Lop;
+    }
+
     public static function getArrayAllLopID()
     {
         $DS_LopID = Lop::select('id')->get();

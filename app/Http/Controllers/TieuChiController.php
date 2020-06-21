@@ -85,14 +85,19 @@ class TieuChiController extends Controller
 
     public function adminindextieuchi()
     {
-        $hocKyNamHocHienHanh = HocKyNamHocController::getHocKyNamHocHienHanh();
-        $hocKyNamHocBoTieuChi = HocKyNamHocBoTieuChi::where('hockynamhoc_id', '=', $hocKyNamHocHienHanh->id)->first();
-        $boTieuChi = $hocKyNamHocBoTieuChi->botieuchi;
+        try {
+            $hocKyNamHocHienHanh = HocKyNamHocController::getHocKyNamHocHienHanh();
+            $hocKyNamHocBoTieuChi = HocKyNamHocBoTieuChi::where('hockynamhoc_id', '=', $hocKyNamHocHienHanh->id)->first();
+            $boTieuChi = $hocKyNamHocBoTieuChi->botieuchi;
 
-        $dsTieuChi_Level_0 = TieuChi::where('botieuchi_id', '=', $boTieuChi->id)->where('idtieuchicha', '=', 0)->select('tieuchi.*')->get();
-        $totalMarks = $dsTieuChi_Level_0->sum('diemtoida');
+            $dsTieuChi_Level_0 = TieuChi::where('botieuchi_id', '=', $boTieuChi->id)->where('idtieuchicha', '=', 0)->select('tieuchi.*')->get();
+            $totalMarks = $dsTieuChi_Level_0->sum('diemtoida');
 
-        return view('admin.tieuchilist', ['boTieuChi'=>$boTieuChi, 'dsTieuChi_Level_0' => $dsTieuChi_Level_0, 'countTieuChi_Level_0' => count($dsTieuChi_Level_0), 'totalMarks' => $totalMarks]);
+            return view('admin.tieuchilist', ['boTieuChi'=>$boTieuChi, 'dsTieuChi_Level_0' => $dsTieuChi_Level_0, 'countTieuChi_Level_0' => count($dsTieuChi_Level_0), 'totalMarks' => $totalMarks]);
+
+        } catch (\Throwable $th) {
+            return view('admin.tieuchilist', ['mesages' => "Chưa thiết lập học kỳ hiện hành hoặc chưa thêm bộ tiêu chí cho học kỳ.<br><br>" . $th->getMessage()]);
+        }
     }
 
 
